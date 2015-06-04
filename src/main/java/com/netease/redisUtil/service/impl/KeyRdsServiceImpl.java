@@ -15,11 +15,16 @@ public class KeyRdsServiceImpl implements KeyRdsService {
 	@Autowired
 	private JedisSentinel jedisSentinel;
 
+	/**
+	 * 获取key列表
+	 */
 	@Override
 	public Set<String> queryKeys(int db, String key) {
 		Jedis jedis = jedisSentinel.getSentinelPool().getResource();
 		jedis.select(db);
-		return jedis.keys(key);
+		Set<String> keySet = jedis.keys(key);
+		jedis.close();
+		return keySet;
 	}
 
 }
