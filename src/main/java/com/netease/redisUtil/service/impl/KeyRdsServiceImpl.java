@@ -27,4 +27,15 @@ public class KeyRdsServiceImpl implements KeyRdsService {
 		return keySet;
 	}
 
+	/**
+	 * 删除key
+	 */
+	@Override
+	public void delKey(int db, String[] key) {
+		Jedis jedis = jedisSentinel.getSentinelPool().getResource();
+		jedis.select(db);
+		jedis.del(key);
+		jedis.close();
+	}
+
 }

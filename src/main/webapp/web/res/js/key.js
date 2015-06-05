@@ -74,3 +74,36 @@ function queryValue (key,id) {
 function queryValuesuccess (result,id) {
 	$("#"+id).html("<div class=\"am-panel-bd\">"+result+"</div");
 }
+
+
+function delKeys() {
+	var keyStyle = $("#delKeyStyle").val();
+	var keys = keyStyle + "*";
+	var db = $("#db").val();
+	var dbName = $("#db").find("option:selected").text();
+	$("#delTips").html("确定删除 "+dbName+" 库中的 "+keyStyle+" 类型数据？");
+	$('#del-confirm').modal({
+        relatedTarget: this,
+        onConfirm: function(options) {
+          $.ajax({
+			  type: 'POST',
+			  url: URL+url_delKey,
+			  data: {
+			  	db:db,
+			  	key:keys
+			  },
+			  success: function(result){
+			  	location.reload();
+			  },
+			  error:function(result){
+			  	ajaxerror(result);
+			  }
+			});
+        },
+        onCancel: function() {
+          
+        }
+      });
+}
+
+

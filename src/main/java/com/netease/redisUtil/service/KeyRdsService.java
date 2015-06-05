@@ -17,4 +17,11 @@ public interface KeyRdsService {
 	 * @return
 	 */
 	public Set<String> queryKeys(int db, String key);
+
+	/**
+	 * 删除key
+	 * @param db
+	 * @param key
+	 */
+	public void delKey(int db, String[] key);
 }
